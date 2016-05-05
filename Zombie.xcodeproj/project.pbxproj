@@ -1,0 +1,554 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E495751C1CC9969800E3C186 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E495751B1CC9969800E3C186 /* main.m */; };
+		E495751F1CC9969800E3C186 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E495751E1CC9969800E3C186 /* AppDelegate.m */; };
+		E49575221CC9969800E3C186 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E49575211CC9969800E3C186 /* GameScene.m */; };
+		E49575241CC9969800E3C186 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E49575231CC9969800E3C186 /* GameScene.sks */; };
+		E49575271CC9969800E3C186 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E49575261CC9969800E3C186 /* GameViewController.m */; };
+		E495752A1CC9969800E3C186 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E49575281CC9969800E3C186 /* Main.storyboard */; };
+		E495752C1CC9969800E3C186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E495752B1CC9969800E3C186 /* Assets.xcassets */; };
+		E495752F1CC9969800E3C186 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E495752D1CC9969800E3C186 /* LaunchScreen.storyboard */; };
+		E495753A1CC9969800E3C186 /* ZombieTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E49575391CC9969800E3C186 /* ZombieTests.m */; };
+		E49575451CC9969800E3C186 /* ZombieUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E49575441CC9969800E3C186 /* ZombieUITests.m */; };
+		E49575531CC9996500E3C186 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E49575521CC9996500E3C186 /* sprites.atlas */; };
+		E4A4EA941CDBD75800C64578 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = E4A4EA921CDBD75800C64578 /* background-music-aac.caf */; };
+		E4A4EA951CDBD75800C64578 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = E4A4EA931CDBD75800C64578 /* pew-pew-lei.caf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E49575361CC9969800E3C186 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E495750F1CC9969700E3C186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E49575161CC9969800E3C186;
+			remoteInfo = Zombie;
+		};
+		E49575411CC9969800E3C186 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E495750F1CC9969700E3C186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E49575161CC9969800E3C186;
+			remoteInfo = Zombie;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E49575171CC9969800E3C186 /* Zombie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zombie.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E495751B1CC9969800E3C186 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E495751D1CC9969800E3C186 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E495751E1CC9969800E3C186 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E49575201CC9969800E3C186 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		E49575211CC9969800E3C186 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		E49575231CC9969800E3C186 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		E49575251CC9969800E3C186 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		E49575261CC9969800E3C186 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		E49575291CC9969800E3C186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E495752B1CC9969800E3C186 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E495752E1CC9969800E3C186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E49575301CC9969800E3C186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E49575351CC9969800E3C186 /* ZombieTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZombieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49575391CC9969800E3C186 /* ZombieTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZombieTests.m; sourceTree = "<group>"; };
+		E495753B1CC9969800E3C186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E49575401CC9969800E3C186 /* ZombieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZombieUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49575441CC9969800E3C186 /* ZombieUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZombieUITests.m; sourceTree = "<group>"; };
+		E49575461CC9969800E3C186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E49575521CC9996500E3C186 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		E4A4EA921CDBD75800C64578 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
+		E4A4EA931CDBD75800C64578 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E49575141CC9969800E3C186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E49575321CC9969800E3C186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E495753D1CC9969800E3C186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E495750E1CC9969700E3C186 = {
+			isa = PBXGroup;
+			children = (
+				E49575191CC9969800E3C186 /* Zombie */,
+				E49575381CC9969800E3C186 /* ZombieTests */,
+				E49575431CC9969800E3C186 /* ZombieUITests */,
+				E49575181CC9969800E3C186 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E49575181CC9969800E3C186 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E49575171CC9969800E3C186 /* Zombie.app */,
+				E49575351CC9969800E3C186 /* ZombieTests.xctest */,
+				E49575401CC9969800E3C186 /* ZombieUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E49575191CC9969800E3C186 /* Zombie */ = {
+			isa = PBXGroup;
+			children = (
+				E4A4EA911CDBD6F100C64578 /* Sounds */,
+				E49575521CC9996500E3C186 /* sprites.atlas */,
+				E495751D1CC9969800E3C186 /* AppDelegate.h */,
+				E495751E1CC9969800E3C186 /* AppDelegate.m */,
+				E49575201CC9969800E3C186 /* GameScene.h */,
+				E49575211CC9969800E3C186 /* GameScene.m */,
+				E49575231CC9969800E3C186 /* GameScene.sks */,
+				E49575251CC9969800E3C186 /* GameViewController.h */,
+				E49575261CC9969800E3C186 /* GameViewController.m */,
+				E49575281CC9969800E3C186 /* Main.storyboard */,
+				E495752B1CC9969800E3C186 /* Assets.xcassets */,
+				E495752D1CC9969800E3C186 /* LaunchScreen.storyboard */,
+				E49575301CC9969800E3C186 /* Info.plist */,
+				E495751A1CC9969800E3C186 /* Supporting Files */,
+			);
+			path = Zombie;
+			sourceTree = "<group>";
+		};
+		E495751A1CC9969800E3C186 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E495751B1CC9969800E3C186 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E49575381CC9969800E3C186 /* ZombieTests */ = {
+			isa = PBXGroup;
+			children = (
+				E49575391CC9969800E3C186 /* ZombieTests.m */,
+				E495753B1CC9969800E3C186 /* Info.plist */,
+			);
+			path = ZombieTests;
+			sourceTree = "<group>";
+		};
+		E49575431CC9969800E3C186 /* ZombieUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E49575441CC9969800E3C186 /* ZombieUITests.m */,
+				E49575461CC9969800E3C186 /* Info.plist */,
+			);
+			path = ZombieUITests;
+			sourceTree = "<group>";
+		};
+		E4A4EA911CDBD6F100C64578 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E4A4EA921CDBD75800C64578 /* background-music-aac.caf */,
+				E4A4EA931CDBD75800C64578 /* pew-pew-lei.caf */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E49575161CC9969800E3C186 /* Zombie */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E49575491CC9969800E3C186 /* Build configuration list for PBXNativeTarget "Zombie" */;
+			buildPhases = (
+				E49575131CC9969800E3C186 /* Sources */,
+				E49575141CC9969800E3C186 /* Frameworks */,
+				E49575151CC9969800E3C186 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Zombie;
+			productName = Zombie;
+			productReference = E49575171CC9969800E3C186 /* Zombie.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E49575341CC9969800E3C186 /* ZombieTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E495754C1CC9969800E3C186 /* Build configuration list for PBXNativeTarget "ZombieTests" */;
+			buildPhases = (
+				E49575311CC9969800E3C186 /* Sources */,
+				E49575321CC9969800E3C186 /* Frameworks */,
+				E49575331CC9969800E3C186 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E49575371CC9969800E3C186 /* PBXTargetDependency */,
+			);
+			name = ZombieTests;
+			productName = ZombieTests;
+			productReference = E49575351CC9969800E3C186 /* ZombieTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E495753F1CC9969800E3C186 /* ZombieUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E495754F1CC9969800E3C186 /* Build configuration list for PBXNativeTarget "ZombieUITests" */;
+			buildPhases = (
+				E495753C1CC9969800E3C186 /* Sources */,
+				E495753D1CC9969800E3C186 /* Frameworks */,
+				E495753E1CC9969800E3C186 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E49575421CC9969800E3C186 /* PBXTargetDependency */,
+			);
+			name = ZombieUITests;
+			productName = ZombieUITests;
+			productReference = E49575401CC9969800E3C186 /* ZombieUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E495750F1CC9969700E3C186 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Jose Carlos Noriega Defferrari";
+				TargetAttributes = {
+					E49575161CC9969800E3C186 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					E49575341CC9969800E3C186 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = E49575161CC9969800E3C186;
+					};
+					E495753F1CC9969800E3C186 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = E49575161CC9969800E3C186;
+					};
+				};
+			};
+			buildConfigurationList = E49575121CC9969700E3C186 /* Build configuration list for PBXProject "Zombie" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E495750E1CC9969700E3C186;
+			productRefGroup = E49575181CC9969800E3C186 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E49575161CC9969800E3C186 /* Zombie */,
+				E49575341CC9969800E3C186 /* ZombieTests */,
+				E495753F1CC9969800E3C186 /* ZombieUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E49575151CC9969800E3C186 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4A4EA951CDBD75800C64578 /* pew-pew-lei.caf in Resources */,
+				E49575531CC9996500E3C186 /* sprites.atlas in Resources */,
+				E49575241CC9969800E3C186 /* GameScene.sks in Resources */,
+				E4A4EA941CDBD75800C64578 /* background-music-aac.caf in Resources */,
+				E495752F1CC9969800E3C186 /* LaunchScreen.storyboard in Resources */,
+				E495752C1CC9969800E3C186 /* Assets.xcassets in Resources */,
+				E495752A1CC9969800E3C186 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E49575331CC9969800E3C186 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E495753E1CC9969800E3C186 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E49575131CC9969800E3C186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E49575271CC9969800E3C186 /* GameViewController.m in Sources */,
+				E495751F1CC9969800E3C186 /* AppDelegate.m in Sources */,
+				E49575221CC9969800E3C186 /* GameScene.m in Sources */,
+				E495751C1CC9969800E3C186 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E49575311CC9969800E3C186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E495753A1CC9969800E3C186 /* ZombieTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E495753C1CC9969800E3C186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E49575451CC9969800E3C186 /* ZombieUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E49575371CC9969800E3C186 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E49575161CC9969800E3C186 /* Zombie */;
+			targetProxy = E49575361CC9969800E3C186 /* PBXContainerItemProxy */;
+		};
+		E49575421CC9969800E3C186 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E49575161CC9969800E3C186 /* Zombie */;
+			targetProxy = E49575411CC9969800E3C186 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E49575281CC9969800E3C186 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E49575291CC9969800E3C186 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E495752D1CC9969800E3C186 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E495752E1CC9969800E3C186 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E49575471CC9969800E3C186 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E49575481CC9969800E3C186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E495754A1CC9969800E3C186 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Zombie/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.videojuegos.Zombie;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E495754B1CC9969800E3C186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Zombie/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.videojuegos.Zombie;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E495754D1CC9969800E3C186 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = ZombieTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.videojuegos.ZombieTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zombie.app/Zombie";
+			};
+			name = Debug;
+		};
+		E495754E1CC9969800E3C186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ZombieTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.videojuegos.ZombieTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zombie.app/Zombie";
+			};
+			name = Release;
+		};
+		E49575501CC9969800E3C186 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = ZombieUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.videojuegos.ZombieUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Zombie;
+			};
+			name = Debug;
+		};
+		E49575511CC9969800E3C186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ZombieUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.videojuegos.ZombieUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Zombie;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E49575121CC9969700E3C186 /* Build configuration list for PBXProject "Zombie" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E49575471CC9969800E3C186 /* Debug */,
+				E49575481CC9969800E3C186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E49575491CC9969800E3C186 /* Build configuration list for PBXNativeTarget "Zombie" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E495754A1CC9969800E3C186 /* Debug */,
+				E495754B1CC9969800E3C186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E495754C1CC9969800E3C186 /* Build configuration list for PBXNativeTarget "ZombieTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E495754D1CC9969800E3C186 /* Debug */,
+				E495754E1CC9969800E3C186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E495754F1CC9969800E3C186 /* Build configuration list for PBXNativeTarget "ZombieUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E49575501CC9969800E3C186 /* Debug */,
+				E49575511CC9969800E3C186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E495750F1CC9969700E3C186 /* Project object */;
+}
