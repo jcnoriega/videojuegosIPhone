@@ -17,10 +17,6 @@
 @property (nonatomic) CGPoint faceDirection;
 @end
 
-static const uint32_t limitCategory = 0x1 << 0;
-static const uint32_t playerCategory = 0x1 << 1;
-static const uint32_t projectileCategory = 0x1 << 2;
-
 @implementation GameScene
     CGPoint start;
     NSTimeInterval startTime;
@@ -117,7 +113,6 @@ static const uint32_t projectileCategory = 0x1 << 2;
         SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"projectile"];
         projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
         projectile.physicsBody.dynamic = YES;
-        projectile.physicsBody.categoryBitMask = projectileCategory;
         projectile.physicsBody.collisionBitMask = 0;
         projectile.physicsBody.usesPreciseCollisionDetection = YES;
         CGFloat projectilePositionX;
