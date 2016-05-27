@@ -143,7 +143,7 @@ NSTimeInterval startTime;
     // and along a random position along the Y axis as calculated above
     
     monster.position = CGPointMake(actualX, actualY);
-    monster.physicsBody.velocity=CGVectorMake(monster.direction.x*30, monster.direction.y*30);
+    monster.physicsBody.velocity=CGVectorMake(monster.direction.x*15, monster.direction.y*15);
     monster.physicsBody.linearDamping = 0; //You may want to remove the air-resistance external force.
     monster.physicsBody.affectedByGravity = false;
     

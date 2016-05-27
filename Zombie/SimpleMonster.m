@@ -37,7 +37,7 @@ static CGPoint directions[4];
     monster.walkFrames = [monster getWalkingFrames:i];
     [monster runAction:[SKAction repeatActionForever:
                       [SKAction animateWithTextures: monster.walkFrames
-                                       timePerFrame:0.2f
+                                       timePerFrame:0.3f
                                             resize:NO
                                             restore:YES]] withKey:@"walkingInPlaceBear"];
   
@@ -60,7 +60,7 @@ static CGPoint directions[4];
     NSTimeInterval interval = currentTime - self.lastUpdateTimeInterval;
     CGPoint previousDirection = self.direction;
     CGPoint newDirection;
-    if (interval >= 2) {
+    if (interval >= 4) {
         int i = 0 + arc4random() % (4 - 0);
         newDirection = directions[i];
         while(CGPointEqualToPoint(previousDirection, newDirection)) {
@@ -72,12 +72,12 @@ static CGPoint directions[4];
         [self removeActionForKey:@"walkingInPlaceBear"];
         [self runAction:[SKAction repeatActionForever:
                             [SKAction animateWithTextures: self.walkFrames
-                                             timePerFrame:0.2f
+                                             timePerFrame:0.3f
                                                    resize:NO
                                                   restore:YES]] withKey:@"walkingInPlaceBear"];
         self.lastUpdateTimeInterval = currentTime;
         self.direction = newDirection;
-        self.physicsBody.velocity = CGVectorMake(newDirection.x * 30, newDirection.y * 30);
+        self.physicsBody.velocity = CGVectorMake(newDirection.x * 15, newDirection.y * 15);
     }
 }
 @end
