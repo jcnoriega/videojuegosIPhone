@@ -23,6 +23,7 @@
 static const uint32_t limitCategory = 0x1 << 0;
 static const uint32_t playerCategory = 0x1 << 1;
 static const uint32_t projectileCategory = 0x1 << 2;
+static const uint32_t monsterCategory = 0x1 << 3;
 
 @implementation GameScene
 CGPoint start;
@@ -39,12 +40,15 @@ NSTimeInterval startTime;
         
         self.faceDirection = CGPointMake(1,0);
         
+        self.physicsWorld.contactDelegate = self; //declare this class as the contact delegate
+        
         self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Player2-1"];
         self.player.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size];
         self.player.physicsBody.dynamic = YES;
         self.player.physicsBody.categoryBitMask = playerCategory;
         self.player.physicsBody.allowsRotation = NO;
+        self.player.name = @"player";
         
         CGSize sceneSize = self.frame.size;
         CGFloat lowerXlimit = self.player.size.width/2;
@@ -63,6 +67,34 @@ NSTimeInterval startTime;
     }
     return self;
 }
+
+- (void) didBeginContact:(SKPhysicsContact *)contact
+{
+    SKSpriteNode *firstNode, *secondNode;
+    
+    firstNode = (SKSpriteNode *)contact.bodyA.node;
+    secondNode = (SKSpriteNode *) contact.bodyB.node;
+    
+    if ((contact.bodyA.categoryBitMask == monsterCategory)
+        && (contact.bodyB.categoryBitMask == projectileCategory))
+    {
+        CGPoint contactPoint = contact.contactPoint;
+        
+       // float contact_y = contactPoint.y;
+       // float target_y = secondNode.position.y;
+        
+        if([contact.bodyA.node.name isEqualToString:@"monster"] )
+        {
+            
+            [contact.bodyA.node removeFromParent];
+        }
+        
+        //NSLog(@"Hit_ %s, %s", contact.bodyA.node.name, contact.bodyB.node.name);
+        //TODO: ¿sumar score? ¿desaparecer al monstruo?
+        
+    }
+}
+
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /*
@@ -90,10 +122,13 @@ NSTimeInterval startTime;
     SimpleMonster * monster = [SimpleMonster spriteNodeWithImageNamed:@"monster"];
     monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size]; // 1
     monster.physicsBody.dynamic = YES; // 2
-    //monster.physicsBody.categoryBitMask = monsterCategory; // 3
+    monster.physicsBody.categoryBitMask = monsterCategory; // 3
     monster.physicsBody.contactTestBitMask = projectileCategory; // 4
-    monster.physicsBody.collisionBitMask = 0; // 5
+    monster.physicsBody.allowsRotation = NO;
+    //monster.physicsBody.collisionBitMask = 0; // 5
+    monster.physicsBody.usesPreciseCollisionDetection = YES;
     monster.userData = [[NSMutableDictionary alloc] initWithDictionary:@{@"Damage":@(25)}];
+    monster.name = @"monster";
     
     [monster update: currentTime];
     // Determine where to spawn the monster along the Y axis
@@ -241,6 +276,7 @@ NSTimeInterval startTime;
         projectile.physicsBody.categoryBitMask = projectileCategory;
         projectile.physicsBody.collisionBitMask = 0;
         projectile.physicsBody.usesPreciseCollisionDetection = YES;
+        
         CGFloat projectilePositionX;
         CGFloat projectilePositionY;
         if (self.faceDirection.x != 0) {
