@@ -39,7 +39,7 @@ NSTimeInterval startTime;
         
         self.faceDirection = CGPointMake(1,0);
         
-        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"player"];
+        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Player2-1"];
         self.player.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size];
         self.player.physicsBody.dynamic = YES;
@@ -87,7 +87,7 @@ NSTimeInterval startTime;
 - (SimpleMonster * )addMonster: (NSTimeInterval)currentTime {
     
     // Create sprite
-    SimpleMonster * monster = [SimpleMonster spriteNodeWithImageNamed:@"223"];
+    SimpleMonster * monster = [SimpleMonster spriteNodeWithImageNamed:@"monster"];
     monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size]; // 1
     monster.physicsBody.dynamic = YES; // 2
     //monster.physicsBody.categoryBitMask = monsterCategory; // 3
@@ -111,7 +111,7 @@ NSTimeInterval startTime;
     // and along a random position along the Y axis as calculated above
     
     monster.position = CGPointMake(actualX, actualY);
-    monster.physicsBody.velocity=CGVectorMake(monster.direction.x*50, monster.direction.y*50);
+    monster.physicsBody.velocity=CGVectorMake(monster.direction.x*30, monster.direction.y*30);
     monster.physicsBody.linearDamping = 0; //You may want to remove the air-resistance external force.
     monster.physicsBody.affectedByGravity = false;
     
@@ -190,25 +190,46 @@ NSTimeInterval startTime;
                 CGFloat playerX = self.player.position.x;
                 CGFloat playerY = self.player.position.y;
                 CGPoint direction;
+                NSMutableArray *walkingFrames = [NSMutableArray array];
+                SKTextureAtlas *playerAnimatedAtlas = [SKTextureAtlas atlasNamed:@"Player"];
+                int index = 0;
+                int j;
                 if (absY > absX) {
                     if (dy < 0) {
                         direction = CGPointMake(playerX, playerY - 1000);
                         self.faceDirection = CGPointMake(0, -1);
+                        index = 2;
                     } else {
                         direction = CGPointMake(playerX, playerY + 1000);
                         self.faceDirection = CGPointMake(0, 1);
+                        index = 0;
                     }
                 } else {
                     if (dx < 0) {
                         direction = CGPointMake(playerX - 1000, playerY);
                         self.faceDirection = CGPointMake(-1, 0);
+                        index = 3;
                     } else {
                         direction = CGPointMake(playerX + 1000, playerY);
                         self.faceDirection = CGPointMake(1, 0);
+                        index = 1;
                     }
                 }
+                for (j=0; j<=3; j++) {
+                    NSString * textureName = [NSString stringWithFormat:@"Player%d-%d", index, j];
+                    SKTexture * texture = [playerAnimatedAtlas textureNamed:textureName];
+                    [walkingFrames addObject:texture];
+                }
+                [self removeActionForKey:@"walkingHero"];
+                SKAction * animation = [SKAction repeatActionForever:
+                                        [SKAction animateWithTextures: walkingFrames
+                                                         timePerFrame:0.125f
+                                                               resize:NO
+                                                              restore:YES]];
                 SKAction * move = [SKAction moveTo:direction duration:15];
-                [self.player runAction: move];
+                SKAction * group = [SKAction group:@[animation, move]];
+
+                [self.player runAction: group];
             }
         }
     } else {
