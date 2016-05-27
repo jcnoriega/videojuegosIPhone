@@ -78,19 +78,16 @@ NSTimeInterval startTime;
     if ((contact.bodyA.categoryBitMask == monsterCategory)
         && (contact.bodyB.categoryBitMask == projectileCategory))
     {
-        CGPoint contactPoint = contact.contactPoint;
         
-       // float contact_y = contactPoint.y;
-       // float target_y = secondNode.position.y;
-        
-        if([contact.bodyA.node.name isEqualToString:@"monster"] )
-        {
+      if(([contact.bodyA.node.name isEqualToString:@"monster"] && [contact.bodyB.node.name isEqualToString:@"projectile"]))        {
             
             [contact.bodyA.node removeFromParent];
+        }else if(([contact.bodyA.node.name isEqualToString:@"projectile"] && [contact.bodyB.node.name isEqualToString:@"monster"])){
+            
+            [contact.bodyB.node removeFromParent];
         }
         
-        //NSLog(@"Hit_ %s, %s", contact.bodyA.node.name, contact.bodyB.node.name);
-        //TODO: ¿sumar score? ¿desaparecer al monstruo?
+        // TODO: como mata el monstruo al player (o le saca vidas)
         
     }
 }
@@ -276,6 +273,7 @@ NSTimeInterval startTime;
         projectile.physicsBody.categoryBitMask = projectileCategory;
         projectile.physicsBody.collisionBitMask = 0;
         projectile.physicsBody.usesPreciseCollisionDetection = YES;
+        projectile.name = @"projectile";
         
         CGFloat projectilePositionX;
         CGFloat projectilePositionY;
