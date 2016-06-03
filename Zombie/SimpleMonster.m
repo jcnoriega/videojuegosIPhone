@@ -12,6 +12,7 @@
 
 static CGPoint directions[4];
 
+
 - (id)init {
     self = [super init];
     self.direction = CGPointMake(0,1);
@@ -21,10 +22,10 @@ static CGPoint directions[4];
 + (void) initializeDirections {
     static BOOL initialized = NO;
     if (!initialized) {
-        directions[0] = CGPointMake(-1, 0);
-        directions[1] = CGPointMake(1, 0);
-        directions[2] = CGPointMake(0, 1);
-        directions[3] = CGPointMake(0, -1);
+        directions[0] = CGPointMake(-1, 0); //izq
+        directions[1] = CGPointMake(1, 0); //der
+        directions[2] = CGPointMake(0, 1); //arr
+        directions[3] = CGPointMake(0, -1); //abj
         initialized = YES;
     }
 }
@@ -34,6 +35,8 @@ static CGPoint directions[4];
     SimpleMonster * monster = [super spriteNodeWithImageNamed: @"WandererZombie3-0"];
     int i = 0 + arc4random() % (4 - 0);
     monster.direction = directions[i];
+    monster.xScale = 0.6;
+    monster.yScale = 0.6;
     monster.walkFrames = [monster getWalkingFrames:i];
     [monster runAction:[SKAction repeatActionForever:
                       [SKAction animateWithTextures: monster.walkFrames
@@ -79,5 +82,14 @@ static CGPoint directions[4];
         self.direction = newDirection;
         self.physicsBody.velocity = CGVectorMake(newDirection.x * 15, newDirection.y * 15);
     }
+}
+
+-(int) getDirection{
+    if(self.physicsBody.velocity.dx >= 0){
+        return 1;
+    }else if(self.physicsBody.velocity.dx < 0){
+        return 0;
+    }
+    return 0;
 }
 @end

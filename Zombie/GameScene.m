@@ -8,6 +8,8 @@
 
 #import "GameScene.h"
 #import "SimpleMonster.h"
+#import "SeekMonster.h"
+
 #define kMinDistance    25
 #define kMinDuration    0.1
 #define kMinSpeed       100
@@ -49,6 +51,8 @@ NSTimeInterval startTime;
         self.player.physicsBody.categoryBitMask = playerCategory;
         self.player.physicsBody.allowsRotation = NO;
         self.player.name = @"player";
+        self.player.xScale = 0.9;
+        self.player.yScale = 0.9;
         
         CGSize sceneSize = self.frame.size;
         CGFloat lowerXlimit = self.player.size.width/2;
@@ -116,7 +120,7 @@ NSTimeInterval startTime;
 - (SimpleMonster * )addMonster: (NSTimeInterval)currentTime {
     
     // Create sprite
-    SimpleMonster * monster = [SimpleMonster spriteNodeWithImageNamed:@"monster"];
+    SimpleMonster * monster = [SeekMonster spriteNodeWithImageNamed:@"monster"];
     monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size]; // 1
     monster.physicsBody.dynamic = YES; // 2
     monster.physicsBody.categoryBitMask = monsterCategory; // 3
@@ -126,6 +130,7 @@ NSTimeInterval startTime;
     monster.physicsBody.usesPreciseCollisionDetection = YES;
     monster.userData = [[NSMutableDictionary alloc] initWithDictionary:@{@"Damage":@(25)}];
     monster.name = @"monster";
+    monster.player = self.player;
     
     [monster update: currentTime];
     // Determine where to spawn the monster along the Y axis
@@ -274,6 +279,8 @@ NSTimeInterval startTime;
         projectile.physicsBody.collisionBitMask = 0;
         projectile.physicsBody.usesPreciseCollisionDetection = YES;
         projectile.name = @"projectile";
+        projectile.xScale = 0.6;
+        projectile.yScale = 0.6;
         
         CGFloat projectilePositionX;
         CGFloat projectilePositionY;
