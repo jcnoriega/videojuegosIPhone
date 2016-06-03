@@ -27,6 +27,11 @@ static const uint32_t playerCategory = 0x1 << 1;
 static const uint32_t projectileCategory = 0x1 << 2;
 static const uint32_t monsterCategory = 0x1 << 3;
 
+typedef enum {
+    Random,
+    Seek,
+} EnemyType;
+
 @implementation GameScene
 CGPoint start;
 NSTimeInterval startTime;
@@ -117,10 +122,13 @@ NSTimeInterval startTime;
     startTime = touch.timestamp;
 }
 
-- (SimpleMonster * )addMonster: (NSTimeInterval)currentTime {
-    
-    // Create sprite
-    SimpleMonster * monster = [SeekMonster spriteNodeWithImageNamed:@"monster"];
+- (SimpleMonster * )addMonster: (NSTimeInterval)currentTime withType:(EnemyType) enemy {
+    SimpleMonster * monster;    // Create sprite
+    if(enemy==Seek){
+        monster = [SeekMonster spriteNodeWithImageNamed:@"monster"];
+    }else{
+       monster = [SimpleMonster spriteNodeWithImageNamed:@"monster"];
+    }
     monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size]; // 1
     monster.physicsBody.dynamic = YES; // 2
     monster.physicsBody.categoryBitMask = monsterCategory; // 3
@@ -183,7 +191,12 @@ NSTimeInterval startTime;
     NSTimeInterval interval = currentTime - self.lastUpdateTimeInterval;
     if (interval >= 5) {
         self.lastUpdateTimeInterval = currentTime;
-        [self.monsters addObject: [self addMonster: currentTime]];
+        int i = 0 + arc4random() % (2 - 0);
+        EnemyType enemy = Random;
+        if(i==1){
+            enemy = Seek;
+        }
+        [self.monsters addObject: [self addMonster: currentTime withType:enemy]];
     }
     
     for (SimpleMonster * monster in self.monsters)
@@ -203,6 +216,23 @@ NSTimeInterval startTime;
      [self updateWithTimeSinceLastUpdate:timeSinceLast]; */
     
 }
+
++ EnemyClassFromEnemyType: (int) type {
+    switch (type) {
+        case Random:
+            return [SimpleMonster class];
+        case Seek:
+            return [SeekMonster class];
+        default:
+            return Nil;
+    }
+}
+
+//+ (SimpleMonster*)createEnemyWithType:(EnemyType*)enemyType {
+//    Class enemyClass = EnemyClassFromEnemyType(enemyType);
+//    return [[enemyClass alloc] initWithType:enemyType];
+//}
+
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
