@@ -8,6 +8,8 @@
 
 #import "GameScene.h"
 #import "SimpleMonster.h"
+#import "SeekMonster.h"
+
 #define kMinDistance    25
 #define kMinDuration    0.1
 #define kMinSpeed       100
@@ -24,6 +26,11 @@ static const uint32_t limitCategory = 0x1 << 0;
 static const uint32_t playerCategory = 0x1 << 1;
 static const uint32_t projectileCategory = 0x1 << 2;
 static const uint32_t monsterCategory = 0x1 << 3;
+
+typedef enum {
+    Random,
+    Seek,
+} EnemyType;
 
 @implementation GameScene
 CGPoint start;
@@ -49,6 +56,8 @@ NSTimeInterval startTime;
         self.player.physicsBody.categoryBitMask = playerCategory;
         self.player.physicsBody.allowsRotation = NO;
         self.player.name = @"player";
+        self.player.xScale = 0.9;
+        self.player.yScale = 0.9;
         
         CGSize sceneSize = self.frame.size;
         CGFloat lowerXlimit = self.player.size.width/2;
@@ -113,10 +122,13 @@ NSTimeInterval startTime;
     startTime = touch.timestamp;
 }
 
-- (SimpleMonster * )addMonster: (NSTimeInterval)currentTime {
-    
-    // Create sprite
-    SimpleMonster * monster = [SimpleMonster spriteNodeWithImageNamed:@"monster"];
+- (SimpleMonster * )addMonster: (NSTimeInterval)currentTime withType:(EnemyType) enemy {
+    SimpleMonster * monster;    // Create sprite
+    if(enemy==Seek){
+        monster = [SeekMonster spriteNodeWithImageNamed:@"monster"];
+    }else{
+       monster = [SimpleMonster spriteNodeWithImageNamed:@"monster"];
+    }
     monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size]; // 1
     monster.physicsBody.dynamic = YES; // 2
     monster.physicsBody.categoryBitMask = monsterCategory; // 3
@@ -126,6 +138,7 @@ NSTimeInterval startTime;
     monster.physicsBody.usesPreciseCollisionDetection = YES;
     monster.userData = [[NSMutableDictionary alloc] initWithDictionary:@{@"Damage":@(25)}];
     monster.name = @"monster";
+    monster.player = self.player;
     
     [monster update: currentTime];
     // Determine where to spawn the monster along the Y axis
@@ -178,7 +191,12 @@ NSTimeInterval startTime;
     NSTimeInterval interval = currentTime - self.lastUpdateTimeInterval;
     if (interval >= 5) {
         self.lastUpdateTimeInterval = currentTime;
-        [self.monsters addObject: [self addMonster: currentTime]];
+        int i = 0 + arc4random() % (2 - 0);
+        EnemyType enemy = Random;
+        if(i==1){
+            enemy = Seek;
+        }
+        [self.monsters addObject: [self addMonster: currentTime withType:enemy]];
     }
     
     for (SimpleMonster * monster in self.monsters)
@@ -198,6 +216,23 @@ NSTimeInterval startTime;
      [self updateWithTimeSinceLastUpdate:timeSinceLast]; */
     
 }
+
++ EnemyClassFromEnemyType: (int) type {
+    switch (type) {
+        case Random:
+            return [SimpleMonster class];
+        case Seek:
+            return [SeekMonster class];
+        default:
+            return Nil;
+    }
+}
+
+//+ (SimpleMonster*)createEnemyWithType:(EnemyType*)enemyType {
+//    Class enemyClass = EnemyClassFromEnemyType(enemyType);
+//    return [[enemyClass alloc] initWithType:enemyType];
+//}
+
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
@@ -274,6 +309,8 @@ NSTimeInterval startTime;
         projectile.physicsBody.collisionBitMask = 0;
         projectile.physicsBody.usesPreciseCollisionDetection = YES;
         projectile.name = @"projectile";
+        projectile.xScale = 0.6;
+        projectile.yScale = 0.6;
         
         CGFloat projectilePositionX;
         CGFloat projectilePositionY;

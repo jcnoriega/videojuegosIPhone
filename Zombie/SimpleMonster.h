@@ -9,10 +9,16 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface SimpleMonster : SKSpriteNode
+
+@property (nonatomic) SKSpriteNode * player;
 @property (nonatomic) CGPoint direction;
 @property (nonatomic, assign) NSTimeInterval lastUpdateTimeInterval;
 @property NSMutableArray *walkFrames;
 
 -(void) update: (NSTimeInterval)currentTime;
 +(void) initializeDirections;
++ (id) spriteNodeWithImageNamed : (NSString *) name;
+- (NSMutableArray *) getWalkingFrames: (int) index;
+-(int) getDirection;
+
 @end
