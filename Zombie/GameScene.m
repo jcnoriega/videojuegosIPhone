@@ -62,7 +62,7 @@ int gameTimeInSec = 60.0;
         self.player.physicsBody.allowsRotation = NO;
         self.player.name = @"player";
         self.player.xScale = 0.7;
-        self.player.yScale = 0.7;
+        self.player.yScale = 0.7; 
         
         CGSize sceneSize = self.frame.size;
         CGFloat lowerXlimit = self.player.size.width/2;
