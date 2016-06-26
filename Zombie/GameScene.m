@@ -7,8 +7,6 @@
 //
 
 #import "GameScene.h"
-#import "SimpleMonster.h"
-#import "SeekMonster.h"
 
 #define kMinDistance    25
 #define kMinDuration    0.1
@@ -30,6 +28,7 @@ static const uint32_t monsterCategory = 0x1 << 3;
 typedef enum {
     Random,
     Seek,
+    Bomb
 } EnemyType;
 
 @implementation GameScene
@@ -39,6 +38,7 @@ SKLabelNode *countDown;
 BOOL startGamePlay = YES;
 NSTimeInterval startTime;
 int gameTimeInSec = 60.0;
+bool GameOver = NO;
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         
@@ -59,12 +59,12 @@ int gameTimeInSec = 60.0;
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size];
         self.player.physicsBody.dynamic = YES;
         self.player.physicsBody.categoryBitMask = playerCategory;
+        self.player.physicsBody.contactTestBitMask = monsterCategory;
         self.player.physicsBody.allowsRotation = NO;
         self.player.name = @"player";
         self.player.xScale = 0.7;
         self.player.yScale = 0.7;
         self.player.zPosition = 50;
-        
         
         CGSize sceneSize = self.frame.size;
         CGFloat lowerXlimit = self.player.size.width/2;
@@ -113,7 +113,13 @@ int gameTimeInSec = 60.0;
     firstNode = (SKSpriteNode *)contact.bodyA.node;
     secondNode = (SKSpriteNode *) contact.bodyB.node;
     
-    if ((contact.bodyA.categoryBitMask == monsterCategory)
+    if (((contact.bodyA.categoryBitMask == monsterCategory)
+         && (contact.bodyB.categoryBitMask == playerCategory)) || ((contact.bodyB.categoryBitMask == monsterCategory)
+                                                                   && (contact.bodyA.categoryBitMask == playerCategory)))
+    {
+        GameOver = YES;
+        countDown.text=@"GAME OVER";
+    } else if ((contact.bodyA.categoryBitMask == monsterCategory)
         && (contact.bodyB.categoryBitMask == projectileCategory))
     {
         
@@ -125,9 +131,8 @@ int gameTimeInSec = 60.0;
             [contact.bodyB.node removeFromParent];
         }
         
-        // TODO: como mata el monstruo al player (o le saca vidas)
-        
     }
+    
 }
 
 
@@ -155,6 +160,8 @@ int gameTimeInSec = 60.0;
     SimpleMonster * monster;    // Create sprite
     if(enemy==Seek){
         monster = [SeekMonster spriteNodeWithImageNamed:@"monster"];
+    }else if(enemy==Bomb){
+        monster = [BombMonster spriteNodeWithImageNamed:@"monster"];
     }else{
        monster = [SimpleMonster spriteNodeWithImageNamed:@"monster"];
     }
@@ -220,10 +227,12 @@ int gameTimeInSec = 60.0;
     NSTimeInterval interval = currentTime - self.lastUpdateTimeInterval;
     if (interval >= 5) {
         self.lastUpdateTimeInterval = currentTime;
-        int i = 0 + arc4random() % (2 - 0);
+        int i = arc4random_uniform(3);
         EnemyType enemy = Random;
         if(i==1){
             enemy = Seek;
+        }else if(i==2){
+            enemy = Bomb;
         }
         [self.monsters addObject: [self addMonster: currentTime withType:enemy]];
     }
@@ -249,7 +258,7 @@ int gameTimeInSec = 60.0;
         startGamePlay = NO;
     }
     int countDownInt = gameTimeInSec - (int) (currentTime - startTimeGame);
-    if(countDownInt>0){
+    if(countDownInt>0 && !GameOver){
         countDown.text = [NSString stringWithFormat:@"%i",(int)countDownInt];
     }else{
         countDown.text=@"GAME OVER";
@@ -259,21 +268,6 @@ int gameTimeInSec = 60.0;
     
 }
 
-+ EnemyClassFromEnemyType: (int) type {
-    switch (type) {
-        case Random:
-            return [SimpleMonster class];
-        case Seek:
-            return [SeekMonster class];
-        default:
-            return Nil;
-    }
-}
-
-//+ (SimpleMonster*)createEnemyWithType:(EnemyType*)enemyType {
-//    Class enemyClass = EnemyClassFromEnemyType(enemyType);
-//    return [[enemyClass alloc] initWithType:enemyType];
-//}s
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];

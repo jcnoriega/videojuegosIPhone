@@ -7,6 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "SimpleMonster.h"
+#import "SeekMonster.h"
+#import "BombMonster.h"
 
 @interface GameScene : SKScene
     <SKPhysicsContactDelegate>
