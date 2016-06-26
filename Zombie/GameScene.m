@@ -63,6 +63,7 @@ int gameTimeInSec = 60.0;
         self.player.name = @"player";
         self.player.xScale = 0.7;
         self.player.yScale = 0.7;
+        self.player.zPosition = 50;
         
         
         CGSize sceneSize = self.frame.size;
@@ -86,6 +87,20 @@ int gameTimeInSec = 60.0;
         countDown.name = @"countDown";
         countDown.zPosition = 100;
         [self addChild:countDown];
+        
+        CGSize coverageSize = CGSizeMake(2000,2000); //the size of the entire image you want tiled
+        CGRect textureSize = CGRectMake(0, 0, 50, 50); //the size of the tile.
+        CGImageRef backgroundCGImage = [UIImage imageNamed:@"Background"].CGImage;
+        UIGraphicsBeginImageContext(CGSizeMake(coverageSize.width, coverageSize.height));
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextDrawTiledImage(context, textureSize, backgroundCGImage);
+        UIImage *tiledBackground = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        SKTexture *backgroundTexture = [SKTexture textureWithCGImage:tiledBackground.CGImage];
+        SKSpriteNode *backgroundTiles = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
+        //backgroundTiles.yScale = -1; //upon closer inspection, I noticed my source tile was flipped vertically, so this just flipped it back.
+        backgroundTiles.position = CGPointMake(0,0);
+        [self addChild:backgroundTiles];
         
     }
     return self;
