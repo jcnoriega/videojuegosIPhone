@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		399BF5D81D1F4AB400C83307 /* UIMyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 399BF5D71D1F4AB400C83307 /* UIMyController.m */; };
 		E495751C1CC9969800E3C186 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E495751B1CC9969800E3C186 /* main.m */; };
 		E495751F1CC9969800E3C186 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E495751E1CC9969800E3C186 /* AppDelegate.m */; };
 		E49575221CC9969800E3C186 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E49575211CC9969800E3C186 /* GameScene.m */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		399BF5D71D1F4AB400C83307 /* UIMyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIMyController.m; sourceTree = "<group>"; };
+		399BF5D91D1F4B0100C83307 /* UIMyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIMyController.h; sourceTree = "<group>"; };
 		E49575171CC9969800E3C186 /* Zombie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zombie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E495751B1CC9969800E3C186 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E495751D1CC9969800E3C186 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -136,6 +139,8 @@
 				E495752D1CC9969800E3C186 /* LaunchScreen.storyboard */,
 				E49575301CC9969800E3C186 /* Info.plist */,
 				E495751A1CC9969800E3C186 /* Supporting Files */,
+				399BF5D71D1F4AB400C83307 /* UIMyController.m */,
+				399BF5D91D1F4B0100C83307 /* UIMyController.h */,
 			);
 			path = Zombie;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				E495751F1CC9969800E3C186 /* AppDelegate.m in Sources */,
 				E49575221CC9969800E3C186 /* GameScene.m in Sources */,
 				E4E7BD2B1CF870F000DB4C43 /* SimpleMonster.m in Sources */,
+				399BF5D81D1F4AB400C83307 /* UIMyController.m in Sources */,
 				FFF915AA1D01F14000FB7046 /* SeekMonster.m in Sources */,
 				E495751C1CC9969800E3C186 /* main.m in Sources */,
 			);

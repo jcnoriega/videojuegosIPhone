@@ -30,5 +30,17 @@
 
 }
 
+- (NSMutableArray *) getWalkingFrames: (int) index {
+    NSMutableArray *walkingFrames = [NSMutableArray array];
+    SKTextureAtlas *zombieAnimatedAtlas = [SKTextureAtlas atlasNamed:@"SeekZombie"];
+    int j;
+    for (j=0; j<=3; j++) {
+        NSString * textureName = [NSString stringWithFormat:@"SeekZombie%d-%d", index, j];
+        SKTexture * texture = [zombieAnimatedAtlas textureNamed:textureName];
+        [walkingFrames addObject:texture];
+    }
+    return walkingFrames;
+}
+
 
 @end

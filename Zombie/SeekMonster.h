@@ -10,4 +10,7 @@
 
 @interface SeekMonster : SimpleMonster
 
+- (void) update: (NSTimeInterval)currentTime;
+- (NSMutableArray *) getWalkingFrames: (int) index;
+
 @end

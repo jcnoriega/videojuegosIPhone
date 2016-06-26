@@ -34,7 +34,11 @@ typedef enum {
 
 @implementation GameScene
 CGPoint start;
+NSTimeInterval startTimeGame;
+SKLabelNode *countDown;
+BOOL startGamePlay = YES;
 NSTimeInterval startTime;
+int gameTimeInSec = 60.0;
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         
@@ -50,14 +54,15 @@ NSTimeInterval startTime;
         self.physicsWorld.contactDelegate = self; //declare this class as the contact delegate
         
         self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Player2-1"];
+        
         self.player.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size];
         self.player.physicsBody.dynamic = YES;
         self.player.physicsBody.categoryBitMask = playerCategory;
         self.player.physicsBody.allowsRotation = NO;
         self.player.name = @"player";
-        self.player.xScale = 0.9;
-        self.player.yScale = 0.9;
+        self.player.xScale = 0.7;
+        self.player.yScale = 0.7;
         
         CGSize sceneSize = self.frame.size;
         CGFloat lowerXlimit = self.player.size.width/2;
@@ -72,6 +77,14 @@ NSTimeInterval startTime;
         [self addChild:self.player];
         
         [SimpleMonster initializeDirections];
+        
+        countDown = [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
+        countDown.fontSize = 12;
+        countDown.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)*0.95);
+        countDown.fontColor = [SKColor blackColor];
+        countDown.name = @"countDown";
+        countDown.zPosition = 100;
+        [self addChild:countDown];
         
     }
     return self;
@@ -215,6 +228,19 @@ NSTimeInterval startTime;
      
      [self updateWithTimeSinceLastUpdate:timeSinceLast]; */
     
+    if(startGamePlay){
+        startTimeGame = currentTime;
+        startGamePlay = NO;
+    }
+    int countDownInt = gameTimeInSec - (int) (currentTime - startTimeGame);
+    if(countDownInt>0){
+        countDown.text = [NSString stringWithFormat:@"%i",(int)countDownInt];
+    }else{
+        countDown.text=@"GAME OVER";
+    }
+    
+    
+    
 }
 
 + EnemyClassFromEnemyType: (int) type {
@@ -231,8 +257,7 @@ NSTimeInterval startTime;
 //+ (SimpleMonster*)createEnemyWithType:(EnemyType*)enemyType {
 //    Class enemyClass = EnemyClassFromEnemyType(enemyType);
 //    return [[enemyClass alloc] initWithType:enemyType];
-//}
-
+//}s
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
@@ -282,7 +307,7 @@ NSTimeInterval startTime;
                         index = 1;
                     }
                 }
-                for (j=0; j<=3; j++) {
+                for (j=0; j<=2; j++) {
                     NSString * textureName = [NSString stringWithFormat:@"Player%d-%d", index, j];
                     SKTexture * texture = [playerAnimatedAtlas textureNamed:textureName];
                     [walkingFrames addObject:texture];
@@ -291,11 +316,10 @@ NSTimeInterval startTime;
                 SKAction * animation = [SKAction repeatActionForever:
                                         [SKAction animateWithTextures: walkingFrames
                                                          timePerFrame:0.125f
-                                                               resize:NO
+                                                               resize:YES
                                                               restore:YES]];
                 SKAction * move = [SKAction moveTo:direction duration:15];
                 SKAction * group = [SKAction group:@[animation, move]];
-
                 [self.player runAction: group];
             }
         }
