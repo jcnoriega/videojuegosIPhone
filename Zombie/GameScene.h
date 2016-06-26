@@ -10,6 +10,7 @@
 #import "SimpleMonster.h"
 #import "SeekMonster.h"
 #import "BombMonster.h"
+#import "Food.h"
 
 @interface GameScene : SKScene
     <SKPhysicsContactDelegate>

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		399BF5D81D1F4AB400C83307 /* UIMyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 399BF5D71D1F4AB400C83307 /* UIMyController.m */; };
 		399BF5DC1D1F89C900C83307 /* BombMonster.m in Sources */ = {isa = PBXBuildFile; fileRef = 399BF5DB1D1F89C900C83307 /* BombMonster.m */; };
+		399BF5DE1D1F9C2D00C83307 /* Food.m in Sources */ = {isa = PBXBuildFile; fileRef = 399BF5DD1D1F9C2D00C83307 /* Food.m */; };
 		E495751C1CC9969800E3C186 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E495751B1CC9969800E3C186 /* main.m */; };
 		E495751F1CC9969800E3C186 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E495751E1CC9969800E3C186 /* AppDelegate.m */; };
 		E49575221CC9969800E3C186 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E49575211CC9969800E3C186 /* GameScene.m */; };
@@ -48,6 +49,8 @@
 		399BF5D91D1F4B0100C83307 /* UIMyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIMyController.h; sourceTree = "<group>"; };
 		399BF5DA1D1F898800C83307 /* BombMonster.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BombMonster.h; sourceTree = "<group>"; };
 		399BF5DB1D1F89C900C83307 /* BombMonster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BombMonster.m; sourceTree = "<group>"; };
+		399BF5DD1D1F9C2D00C83307 /* Food.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Food.m; sourceTree = "<group>"; };
+		399BF5DF1D1F9C5900C83307 /* Food.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Food.h; sourceTree = "<group>"; };
 		E49575171CC9969800E3C186 /* Zombie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zombie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E495751B1CC9969800E3C186 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E495751D1CC9969800E3C186 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -132,6 +135,8 @@
 				FFF915A81D01F14000FB7046 /* SeekMonster.h */,
 				FFF915A91D01F14000FB7046 /* SeekMonster.m */,
 				E4E7BD2A1CF870F000DB4C43 /* SimpleMonster.m */,
+				399BF5DD1D1F9C2D00C83307 /* Food.m */,
+				399BF5DF1D1F9C5900C83307 /* Food.h */,
 				E4A4EA911CDBD6F100C64578 /* Sounds */,
 				E49575521CC9996500E3C186 /* sprites.atlas */,
 				E495751D1CC9969800E3C186 /* AppDelegate.h */,
@@ -319,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				399BF5DE1D1F9C2D00C83307 /* Food.m in Sources */,
 				E49575271CC9969800E3C186 /* GameViewController.m in Sources */,
 				E495751F1CC9969800E3C186 /* AppDelegate.m in Sources */,
 				E49575221CC9969800E3C186 /* GameScene.m in Sources */,

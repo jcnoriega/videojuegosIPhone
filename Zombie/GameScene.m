@@ -24,6 +24,7 @@ static const uint32_t limitCategory = 0x1 << 0;
 static const uint32_t playerCategory = 0x1 << 1;
 static const uint32_t projectileCategory = 0x1 << 2;
 static const uint32_t monsterCategory = 0x1 << 3;
+static const uint32_t foodCategory = 0x1 << 4;
 
 typedef enum {
     Random,
@@ -59,7 +60,7 @@ bool GameOver = NO;
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size];
         self.player.physicsBody.dynamic = YES;
         self.player.physicsBody.categoryBitMask = playerCategory;
-        self.player.physicsBody.contactTestBitMask = monsterCategory;
+        self.player.physicsBody.contactTestBitMask = monsterCategory | foodCategory;
         self.player.physicsBody.allowsRotation = NO;
         self.player.name = @"player";
         self.player.xScale = 0.7;
@@ -131,6 +132,24 @@ bool GameOver = NO;
             [contact.bodyB.node removeFromParent];
         }
         
+    }else if ((contact.bodyA.categoryBitMask == foodCategory)
+              && (contact.bodyB.categoryBitMask == playerCategory))
+    {
+        [contact.bodyA.node removeFromParent];
+        if([contact.bodyA.node.name isEqualToString:@"badfood"]){
+            gameTimeInSec = gameTimeInSec - 40;
+        }else{
+            gameTimeInSec = gameTimeInSec + 10;
+        }
+    }else if ((contact.bodyB.categoryBitMask == foodCategory)
+              && (contact.bodyA.categoryBitMask == playerCategory))
+    {
+        [contact.bodyB.node removeFromParent];
+        if([contact.bodyB.node.name isEqualToString:@"badfood"]){
+            gameTimeInSec = gameTimeInSec - 40;
+        }else{
+            gameTimeInSec = gameTimeInSec + 10;
+        }
     }
     
 }
@@ -154,6 +173,27 @@ bool GameOver = NO;
     // Save start location and time
     start = location;
     startTime = touch.timestamp;
+}
+
+- (Food * )addFood{
+    Food * food = [Food spriteNodeWithImageNamed:@"food"];
+    
+    int minY = food.size.height / 2;
+    int maxY = self.frame.size.height - food.size.height / 2;
+    int rangeY = maxY - minY;
+    int actualY = (arc4random() % rangeY) + minY;
+    int minX = food.size.width / 2;
+    int maxX = self.frame.size.width - food.size.width / 2;
+    int rangeX = maxX - minX;
+    int actualX = (arc4random() % rangeX) + minX;
+    food.position = CGPointMake(actualX, actualY);
+    food.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:food.size];
+    food.physicsBody.dynamic = YES;
+    food.physicsBody.categoryBitMask = foodCategory;
+    food.physicsBody.contactTestBitMask = playerCategory;
+    food.physicsBody.allowsRotation = NO;
+    food.physicsBody.usesPreciseCollisionDetection = YES;
+    return food;
 }
 
 - (SimpleMonster * )addMonster: (NSTimeInterval)currentTime withType:(EnemyType) enemy {
@@ -235,6 +275,9 @@ bool GameOver = NO;
             enemy = Bomb;
         }
         [self.monsters addObject: [self addMonster: currentTime withType:enemy]];
+    }
+    if (arc4random_uniform(500) < 0.5) {
+        [self addChild:[self addFood]];
     }
     
     for (SimpleMonster * monster in self.monsters)
