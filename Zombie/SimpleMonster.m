@@ -42,7 +42,7 @@ static CGPoint directions[4];
                       [SKAction animateWithTextures: monster.walkFrames
                                        timePerFrame:0.3f
                                             resize:NO
-                                            restore:YES]] withKey:@"walkingInPlaceBear"];
+                                            restore:YES]] withKey:@"walkingInPlace"];
   
     return monster;
 }
@@ -72,12 +72,12 @@ static CGPoint directions[4];
 
         }
         self.walkFrames = [self getWalkingFrames:i];
-        [self removeActionForKey:@"walkingInPlaceBear"];
+        [self removeActionForKey:@"walkingInPlace"];
         [self runAction:[SKAction repeatActionForever:
                             [SKAction animateWithTextures: self.walkFrames
                                              timePerFrame:0.3f
                                                    resize:NO
-                                                  restore:YES]] withKey:@"walkingInPlaceBear"];
+                                                  restore:YES]] withKey:@"walkingInPlace"];
         self.lastUpdateTimeInterval = currentTime;
         self.direction = newDirection;
         self.physicsBody.velocity = CGVectorMake(newDirection.x * 15, newDirection.y * 15);

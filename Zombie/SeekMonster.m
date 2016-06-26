@@ -20,12 +20,12 @@
     self.lastUpdateTimeInterval = currentTime;
     int i = super.getDirection;
     self.walkFrames = [self getWalkingFrames:i];
-    [self removeActionForKey:@"walkingInPlaceBear"];
+    [self removeActionForKey:@"walkingInPlace"];
     [self runAction:[SKAction repeatActionForever:
                      [SKAction animateWithTextures: self.walkFrames
                                       timePerFrame:0.3f
                                             resize:NO
-                                           restore:YES]] withKey:@"walkingInPlaceBear"];
+                                           restore:YES]] withKey:@"walkingInPlace"];
 
 
 }
