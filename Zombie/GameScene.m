@@ -38,14 +38,18 @@ NSTimeInterval startTimeGame;
 SKLabelNode *countDown;
 SKLabelNode *score;
 SKLabelNode *middleText;
+SKLabelNode *playagain;
 int scoreValue;
 BOOL startGamePlay = YES;
 NSTimeInterval startTime;
-int gameTimeInSec = 60.0;
+int gameTimeInSec;
 bool GameOver = NO;
 
 -(void)initializeScene{
-    
+    startGamePlay = YES;
+    GameOver = NO;
+    scoreValue = 0;
+    gameTimeInSec = 60.0;
     self.monsters = [NSMutableArray array];
     self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Player2-1"];
     
@@ -82,6 +86,7 @@ bool GameOver = NO;
     countDown.fontColor = [SKColor whiteColor];
     countDown.name = @"countDown";
     countDown.zPosition = 100;
+    countDown.text = [NSString stringWithFormat:@"%d",gameTimeInSec];
     [self addChild:countDown];
     
     score = [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
@@ -101,6 +106,14 @@ bool GameOver = NO;
     middleText.name = @"middletext";
     middleText.zPosition = 100;
     [self addChild:middleText];
+    
+    playagain = [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
+    playagain.fontSize = 20;
+    playagain.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)*0.8);
+    playagain.fontColor = [SKColor whiteColor];
+    playagain.name = @"playagain";
+    playagain.zPosition = 100;
+    [self addChild:playagain];
     
     CGSize coverageSize = CGSizeMake(2000,2000); //the size of the entire image you want tiled
     CGRect textureSize = CGRectMake(0, 0, 50, 50); //the size of the tile.
@@ -144,6 +157,8 @@ bool GameOver = NO;
         GameOver = YES;
         countDown.text=@":(";
         middleText.text =@"GAME OVER";
+        playagain.text=@"Play Again";
+        [self.player removeFromParent];
     } else if ((contact.bodyA.categoryBitMask == monsterCategory)
         && (contact.bodyB.categoryBitMask == projectileCategory))
     {
@@ -176,12 +191,6 @@ bool GameOver = NO;
 
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /*
-     SKNode* obj;
-     
-     if ([obj isKindOfClass:[GameScene class]]) {
-     [((GameScene*)obj) ]
-     }
      
      
      /* Avoid multi-touch gestures (optional) */
@@ -193,6 +202,18 @@ bool GameOver = NO;
     // Save start location and time
     start = location;
     startTime = touch.timestamp;
+   
+    for (UITouch *touch in touches) {
+        CGPoint location = [touch locationInNode:self];
+        SKNode *node = [self nodeAtPoint:location];
+        if ([node.name isEqualToString: @"playagain"]) {
+            [self restart];
+            //let reveal : SKTransition = SKTransition.flipHorizontalWithDuration(0.5)
+            //let scene = GameScene(size: self.view!.bounds.size)
+            //scene.scaleMode = .AspectFill
+            //self.view?.presentScene(scene, transition: reveal)
+        }
+    }
 }
 
 - (Food * )addFood{
@@ -326,6 +347,8 @@ bool GameOver = NO;
     }else{
         countDown.text=@":(";
         middleText.text = @"GAME OVER";
+        playagain.text=@"Play Again";
+        [self.player removeFromParent];
     }
     
     
