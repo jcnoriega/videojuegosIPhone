@@ -36,14 +36,89 @@ typedef enum {
 CGPoint start;
 NSTimeInterval startTimeGame;
 SKLabelNode *countDown;
+SKLabelNode *score;
+SKLabelNode *middleText;
+int scoreValue;
 BOOL startGamePlay = YES;
 NSTimeInterval startTime;
 int gameTimeInSec = 60.0;
 bool GameOver = NO;
+
+-(void)initializeScene{
+    
+    self.monsters = [NSMutableArray array];
+    self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Player2-1"];
+    
+    self.player.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size];
+    self.player.physicsBody.dynamic = YES;
+    self.player.physicsBody.categoryBitMask = playerCategory;
+    self.player.physicsBody.contactTestBitMask = monsterCategory | foodCategory;
+    self.player.physicsBody.allowsRotation = NO;
+    self.player.name = @"player";
+    self.player.xScale = 0.7;
+    self.player.yScale = 0.7;
+    self.player.zPosition = 50;
+    
+    CGSize sceneSize = self.frame.size;
+    CGFloat lowerXlimit = self.player.size.width/2;
+    CGFloat lowerYlimit = self.player.size.height/2;
+    CGFloat upperXlimit = sceneSize.width - self.player.size.width/2;
+    CGFloat upperYlimit = sceneSize.height - self.player.size.height/2;
+    SKConstraint *constraint = [SKConstraint
+                                positionX:[SKRange rangeWithLowerLimit:lowerXlimit upperLimit:upperXlimit]
+                                Y:[SKRange rangeWithLowerLimit:lowerYlimit upperLimit:upperYlimit]];
+    self.player.constraints = @[constraint];
+    
+    NSLog(@"Frame height = %f",self.frame.size.height);
+    NSLog(@"Frame width = %f",self.frame.size.width);
+    [self addChild:self.player];
+    
+    [SimpleMonster initializeDirections];
+    
+    countDown = [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
+    countDown.fontSize = 12;
+    countDown.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)*0.95);
+    countDown.fontColor = [SKColor whiteColor];
+    countDown.name = @"countDown";
+    countDown.zPosition = 100;
+    [self addChild:countDown];
+    
+    score = [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
+    score.fontSize = 12;
+    score.position = CGPointMake(CGRectGetMaxX(self.frame)*0.95, CGRectGetMaxY(self.frame)*0.95);
+    score.fontColor = [SKColor whiteColor];
+    score.name = @"score";
+    score.zPosition = 100;
+    scoreValue = 0;
+    score.text = [NSString stringWithFormat:@"Score: %d",scoreValue];
+    [self addChild:score];
+    
+    middleText = [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
+    middleText.fontSize = 26;
+    middleText.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    middleText.fontColor = [SKColor whiteColor];
+    middleText.name = @"middletext";
+    middleText.zPosition = 100;
+    [self addChild:middleText];
+    
+    CGSize coverageSize = CGSizeMake(2000,2000); //the size of the entire image you want tiled
+    CGRect textureSize = CGRectMake(0, 0, 50, 50); //the size of the tile.
+    CGImageRef backgroundCGImage = [UIImage imageNamed:@"Background"].CGImage;
+    UIGraphicsBeginImageContext(CGSizeMake(coverageSize.width, coverageSize.height));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextDrawTiledImage(context, textureSize, backgroundCGImage);
+    UIImage *tiledBackground = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    SKTexture *backgroundTexture = [SKTexture textureWithCGImage:tiledBackground.CGImage];
+    SKSpriteNode *backgroundTiles = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
+    backgroundTiles.position = CGPointMake(0,0);
+    [self addChild:backgroundTiles];
+}
+
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
-        
-        self.monsters = [NSMutableArray array];
+        [self initializeScene];
         
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         self.physicsWorld.gravity = CGVectorMake(0,0);
@@ -51,57 +126,6 @@ bool GameOver = NO;
         self.faceDirection = CGPointMake(0,-1);
         
         self.physicsWorld.contactDelegate = self; //declare this class as the contact delegate
-        
-        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Player2-1"];
-        
-        self.player.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-        self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size];
-        self.player.physicsBody.dynamic = YES;
-        self.player.physicsBody.categoryBitMask = playerCategory;
-        self.player.physicsBody.contactTestBitMask = monsterCategory | foodCategory;
-        self.player.physicsBody.allowsRotation = NO;
-        self.player.name = @"player";
-        self.player.xScale = 0.7;
-        self.player.yScale = 0.7;
-        self.player.zPosition = 50;
-        
-        CGSize sceneSize = self.frame.size;
-        CGFloat lowerXlimit = self.player.size.width/2;
-        CGFloat lowerYlimit = self.player.size.height/2;
-        CGFloat upperXlimit = sceneSize.width - self.player.size.width/2;
-        CGFloat upperYlimit = sceneSize.height - self.player.size.height/2;
-        SKConstraint *constraint = [SKConstraint
-                                    positionX:[SKRange rangeWithLowerLimit:lowerXlimit upperLimit:upperXlimit]
-                                    Y:[SKRange rangeWithLowerLimit:lowerYlimit upperLimit:upperYlimit]];
-        self.player.constraints = @[constraint];
-        
-        NSLog(@"Frame height = %f",self.frame.size.height);
-        NSLog(@"Frame width = %f",self.frame.size.width);
-        [self addChild:self.player];
-        
-        [SimpleMonster initializeDirections];
-        
-        countDown = [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
-        countDown.fontSize = 12;
-        countDown.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)*0.95);
-        countDown.fontColor = [SKColor blackColor];
-        countDown.name = @"countDown";
-        countDown.zPosition = 100;
-        [self addChild:countDown];
-        
-        CGSize coverageSize = CGSizeMake(2000,2000); //the size of the entire image you want tiled
-        CGRect textureSize = CGRectMake(0, 0, 50, 50); //the size of the tile.
-        CGImageRef backgroundCGImage = [UIImage imageNamed:@"Background"].CGImage;
-        UIGraphicsBeginImageContext(CGSizeMake(coverageSize.width, coverageSize.height));
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextDrawTiledImage(context, textureSize, backgroundCGImage);
-        UIImage *tiledBackground = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        SKTexture *backgroundTexture = [SKTexture textureWithCGImage:tiledBackground.CGImage];
-        SKSpriteNode *backgroundTiles = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
-        //backgroundTiles.yScale = -1; //upon closer inspection, I noticed my source tile was flipped vertically, so this just flipped it back.
-        backgroundTiles.position = CGPointMake(0,0);
-        [self addChild:backgroundTiles];
         
     }
     return self;
@@ -118,12 +142,15 @@ bool GameOver = NO;
          && (contact.bodyB.categoryBitMask == playerCategory)) || ((contact.bodyB.categoryBitMask == monsterCategory) && (contact.bodyA.categoryBitMask == playerCategory)))
     {
         GameOver = YES;
-        countDown.text=@"GAME OVER";
+        countDown.text=@":(";
+        middleText.text =@"GAME OVER";
     } else if ((contact.bodyA.categoryBitMask == monsterCategory)
         && (contact.bodyB.categoryBitMask == projectileCategory))
     {
         [contact.bodyA.node removeFromParent];
         [contact.bodyB.node removeFromParent];
+        scoreValue = scoreValue + 1;
+        score.text = [NSString stringWithFormat:@"Score: %d",scoreValue];
         
     }else if ((contact.bodyA.categoryBitMask == foodCategory)
               && (contact.bodyB.categoryBitMask == playerCategory))
@@ -297,7 +324,8 @@ bool GameOver = NO;
     if(countDownInt>0 && !GameOver){
         countDown.text = [NSString stringWithFormat:@"%i",(int)countDownInt];
     }else{
-        countDown.text=@"GAME OVER";
+        countDown.text=@":(";
+        middleText.text = @"GAME OVER";
     }
     
     
@@ -312,7 +340,7 @@ bool GameOver = NO;
     CGFloat dx = location.x - start.x;
     CGFloat dy = location.y - start.y;
     CGFloat magnitude = sqrt(dx*dx+dy*dy);
-    if (magnitude >= kMinDistance) {
+    if (magnitude >= kMinDistance && !GameOver) {
         // Determine time difference from start of the gesture
         CGFloat dt = touch.timestamp - startTime;
         if (dt > kMinDuration) {
@@ -368,7 +396,7 @@ bool GameOver = NO;
                 [self.player runAction: group];
             }
         }
-    } else {
+    } else if(!GameOver){
         // 2 - Set up initial location of projectile
         [self runAction:[SKAction playSoundFileNamed:@"pew-pew-lei.caf" waitForCompletion:NO]];
         SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"projectile"];
@@ -402,6 +430,14 @@ bool GameOver = NO;
         SKAction * actionMoveDone = [SKAction removeFromParent];
         [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
     }
+    
+}
+
+- (void) restart {
+    
+    [self removeAllChildren];
+    [self removeAllActions];
+    [self initializeScene];
 }
 
 
