@@ -50,6 +50,7 @@ bool GameOver = NO;
     GameOver = NO;
     scoreValue = 0;
     gameTimeInSec = 60.0;
+    self.faceDirection = CGPointMake(0,-1);
     self.monsters = [NSMutableArray array];
     self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Player2-1"];
     
@@ -135,8 +136,6 @@ bool GameOver = NO;
         
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         self.physicsWorld.gravity = CGVectorMake(0,0);
-        
-        self.faceDirection = CGPointMake(0,-1);
         
         self.physicsWorld.contactDelegate = self; //declare this class as the contact delegate
         
@@ -258,16 +257,21 @@ bool GameOver = NO;
     monster.frameheight = self.frame.size.height;
     monster.framewidth = self.frame.size.width;
     [monster update: currentTime];
-    // Determine where to spawn the monster along the Y axis
+    
     int minY = monster.size.height;
     int maxY = self.frame.size.height - monster.size.height;
     int rangeY = maxY - minY;
-    int actualY = (arc4random() % rangeY) + minY;
-    
     int minX = monster.size.width;
     int maxX = self.frame.size.width - monster.size.width;
     int rangeX = maxX - minX;
+    int actualY = (arc4random() % rangeY) + minY;
     int actualX = (arc4random() % rangeX) + minX;
+    int range = self.size.height * 0.2;
+    while((actualY < self.player.position.y + range) && (actualY > self.player.position.y - range) && (actualX < self.player.position.x + range) && (actualX > self.player.position.x - range) ){
+        actualY = (arc4random() % rangeY) + minY;
+        actualX = (arc4random() % rangeX) + minX;
+
+    }
     
     // Create the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
