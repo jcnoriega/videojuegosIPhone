@@ -14,11 +14,15 @@
 @property (nonatomic) CGPoint direction;
 @property (nonatomic, assign) NSTimeInterval lastUpdateTimeInterval;
 @property NSMutableArray *walkFrames;
+@property (nonatomic) int frameheight;
+@property (nonatomic) int framewidth;
+
 
 -(void) update: (NSTimeInterval)currentTime;
 +(void) initializeDirections;
 + (id) spriteNodeWithImageNamed : (NSString *) name;
 - (NSMutableArray *) getWalkingFrames: (int) index;
 -(int) getDirection;
+-(void) frameWallAvoidance;
 
 @end

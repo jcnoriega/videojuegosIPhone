@@ -12,11 +12,12 @@
 
 -(void) update: (NSTimeInterval)currentTime {
     
-    double dx = (self.player.position.x - self.position.x);
-    double dy = (self.player.position.y - self.position.y);
-    //double dist = sqrt(dx*dx + dy*dy);
+    double dx = ((self.player.position.x + self.player.physicsBody.velocity.dx * 0.05) - self.position.x);
+    double dy = ((self.player.position.y + self.player.physicsBody.velocity.dx * 0.05)- self.position.y);
+    double dist = sqrt(dx*dx + dy*dy);
+    CGVector desiredVel = CGVectorMake(dx/dist * 0.3, dy/dist * 0.3);
     
-    self.physicsBody.velocity = CGVectorMake(dx * 0.3, dy * 0.3);
+    [self.physicsBody applyForce:desiredVel];
     self.lastUpdateTimeInterval = currentTime;
     int i = super.getDirection;
     self.walkFrames = [self getWalkingFrames:i];
@@ -26,6 +27,8 @@
                                       timePerFrame:0.3f
                                             resize:NO
                                            restore:YES]] withKey:@"walkingInPlace"];
+    
+    [super frameWallAvoidance];
 
 
 }

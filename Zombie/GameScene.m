@@ -45,12 +45,10 @@ bool GameOver = NO;
         
         self.monsters = [NSMutableArray array];
         
-        NSLog(@"Size: %@", NSStringFromCGSize(size));
-        
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         self.physicsWorld.gravity = CGVectorMake(0,0);
         
-        self.faceDirection = CGPointMake(1,0);
+        self.faceDirection = CGPointMake(0,-1);
         
         self.physicsWorld.contactDelegate = self; //declare this class as the contact delegate
         
@@ -76,7 +74,9 @@ bool GameOver = NO;
                                     positionX:[SKRange rangeWithLowerLimit:lowerXlimit upperLimit:upperXlimit]
                                     Y:[SKRange rangeWithLowerLimit:lowerYlimit upperLimit:upperYlimit]];
         self.player.constraints = @[constraint];
-        NSLog(@"first time = %g",self.lastUpdateTimeInterval);
+        
+        NSLog(@"Frame height = %f",self.frame.size.height);
+        NSLog(@"Frame width = %f",self.frame.size.width);
         [self addChild:self.player];
         
         [SimpleMonster initializeDirections];
@@ -115,22 +115,15 @@ bool GameOver = NO;
     secondNode = (SKSpriteNode *) contact.bodyB.node;
     
     if (((contact.bodyA.categoryBitMask == monsterCategory)
-         && (contact.bodyB.categoryBitMask == playerCategory)) || ((contact.bodyB.categoryBitMask == monsterCategory)
-                                                                   && (contact.bodyA.categoryBitMask == playerCategory)))
+         && (contact.bodyB.categoryBitMask == playerCategory)) || ((contact.bodyB.categoryBitMask == monsterCategory) && (contact.bodyA.categoryBitMask == playerCategory)))
     {
         GameOver = YES;
         countDown.text=@"GAME OVER";
     } else if ((contact.bodyA.categoryBitMask == monsterCategory)
         && (contact.bodyB.categoryBitMask == projectileCategory))
     {
-        
-      if(([contact.bodyA.node.name isEqualToString:@"monster"] && [contact.bodyB.node.name isEqualToString:@"projectile"]))        {
-            
-            [contact.bodyA.node removeFromParent];
-        }else if(([contact.bodyA.node.name isEqualToString:@"projectile"] && [contact.bodyB.node.name isEqualToString:@"monster"])){
-            
-            [contact.bodyB.node removeFromParent];
-        }
+        [contact.bodyA.node removeFromParent];
+        [contact.bodyB.node removeFromParent];
         
     }else if ((contact.bodyA.categoryBitMask == foodCategory)
               && (contact.bodyB.categoryBitMask == playerCategory))
@@ -188,7 +181,7 @@ bool GameOver = NO;
     int actualX = (arc4random() % rangeX) + minX;
     food.position = CGPointMake(actualX, actualY);
     food.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:food.size];
-    food.physicsBody.dynamic = YES;
+    food.physicsBody.dynamic = NO;
     food.physicsBody.categoryBitMask = foodCategory;
     food.physicsBody.contactTestBitMask = playerCategory;
     food.physicsBody.allowsRotation = NO;
@@ -205,26 +198,26 @@ bool GameOver = NO;
     }else{
        monster = [SimpleMonster spriteNodeWithImageNamed:@"monster"];
     }
-    monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size]; // 1
-    monster.physicsBody.dynamic = YES; // 2
-    monster.physicsBody.categoryBitMask = monsterCategory; // 3
-    monster.physicsBody.contactTestBitMask = projectileCategory; // 4
+    monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size];
+    monster.physicsBody.dynamic = YES;
+    monster.physicsBody.categoryBitMask = monsterCategory; 
+    monster.physicsBody.contactTestBitMask = projectileCategory | playerCategory;
     monster.physicsBody.allowsRotation = NO;
     //monster.physicsBody.collisionBitMask = 0; // 5
     monster.physicsBody.usesPreciseCollisionDetection = YES;
-    monster.userData = [[NSMutableDictionary alloc] initWithDictionary:@{@"Damage":@(25)}];
     monster.name = @"monster";
     monster.player = self.player;
-    
+    monster.frameheight = self.frame.size.height;
+    monster.framewidth = self.frame.size.width;
     [monster update: currentTime];
     // Determine where to spawn the monster along the Y axis
-    int minY = monster.size.height / 2;
-    int maxY = self.frame.size.height - monster.size.height / 2;
+    int minY = monster.size.height;
+    int maxY = self.frame.size.height - monster.size.height;
     int rangeY = maxY - minY;
     int actualY = (arc4random() % rangeY) + minY;
     
-    int minX = monster.size.width / 2;
-    int maxX = self.frame.size.width - monster.size.width / 2;
+    int minX = monster.size.width;
+    int maxX = self.frame.size.width - monster.size.width;
     int rangeX = maxX - minX;
     int actualX = (arc4random() % rangeX) + minX;
     
@@ -329,7 +322,6 @@ bool GameOver = NO;
                 // Calculate normalized direction of the swipe
                 dx = dx / magnitude;
                 dy = dy / magnitude;
-                NSLog(@"Swipe detected with speed = %g and direction (%g, %g)",speed, dx, dy);
                 CGFloat absY = fabs(dy);
                 CGFloat absX = fabs(dx);
                 CGFloat playerX = self.player.position.x;

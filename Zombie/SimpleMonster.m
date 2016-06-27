@@ -81,7 +81,9 @@ static CGPoint directions[4];
         self.lastUpdateTimeInterval = currentTime;
         self.direction = newDirection;
         self.physicsBody.velocity = CGVectorMake(newDirection.x * 15, newDirection.y * 15);
+        [self frameWallAvoidance];
     }
+    
 }
 
 -(int) getDirection{
@@ -91,5 +93,22 @@ static CGPoint directions[4];
         return 0;
     }
     return 0;
+}
+
+-(void) frameWallAvoidance{
+    int raylengthx = self.framewidth * 0.05;
+    int raylengthy = self.frameheight * 0.05;
+    CGVector dir = CGVectorMake(0, 0);
+    if(self.position.x < self.framewidth * 0.05){
+        dir = CGVectorMake(0.1 * (raylengthx - self.position.x),0);
+    }else if(self.position.y < self.frameheight * 0.05){
+        dir = CGVectorMake(0, 0.1 * (raylengthy - self.position.y));
+    }else if(self.position.x > (self.framewidth - raylengthx)){
+        dir = CGVectorMake(- 0.1 * (raylengthx - (self.framewidth - self.position.x)),0);
+    }else if(self.position.y > (self.frameheight - raylengthy)){
+        dir = CGVectorMake(0, - 0.1 * (raylengthy - (self.frameheight -self.position.y)));
+    }
+    [self.physicsBody applyForce:dir];
+
 }
 @end
