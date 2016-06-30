@@ -14,10 +14,10 @@
     
     double dx = ((self.player.position.x + self.player.physicsBody.velocity.dx * 0.05) - self.position.x);
     double dy = ((self.player.position.y + self.player.physicsBody.velocity.dx * 0.05)- self.position.y);
-    double dist = sqrt(dx*dx + dy*dy);
-    CGVector desiredVel = CGVectorMake(dx/dist * 0.3, dy/dist * 0.3);
+    CGVector desiredVel = CGVectorMake(dx * 0.8, dy * 0.8);
     
-    [self.physicsBody applyForce:desiredVel];
+    self.physicsBody.velocity = desiredVel;
+    //[self.physicsBody applyForce:force];
     self.lastUpdateTimeInterval = currentTime;
     int i = super.getDirection;
     self.walkFrames = [self getWalkingFrames:i];
