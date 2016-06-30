@@ -40,11 +40,13 @@ SKLabelNode *score;
 SKLabelNode *middleText;
 SKLabelNode *playagain;
 SKLabelNode *mainmenu;
+SKLabelNode *pauseText;
 int scoreValue;
 BOOL startGamePlay = YES;
 NSTimeInterval startTime;
 int gameTimeInSec;
 bool GameOver = NO;
+bool Paused = NO;
 
 -(void)initializeScene{
     startGamePlay = YES;
@@ -100,6 +102,15 @@ bool GameOver = NO;
     scoreValue = 0;
     score.text = [NSString stringWithFormat:@"Score: %d",scoreValue];
     [self addChild:score];
+    
+    pauseText= [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
+    pauseText.fontSize = 12;
+    pauseText.position = CGPointMake(CGRectGetMidX(self.frame) *  0.05, CGRectGetMaxY(self.frame)*0.95);
+    pauseText.fontColor = [SKColor whiteColor];
+    pauseText.name = @"pause";
+    pauseText.zPosition = 100;
+    pauseText.text = @"||";
+    [self addChild:pauseText];
     
     middleText = [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
     middleText.fontSize = 26;
@@ -222,6 +233,12 @@ bool GameOver = NO;
             SKTransition *transition = [SKTransition flipVerticalWithDuration:0.5];
             [self.view presentScene:sampleScene transition:transition];
 
+        }else if([node.name isEqualToString: @"pause"] && !Paused) {
+            self.scene.view.paused = YES;
+            Paused = YES;
+        }else if([node.name isEqualToString: @"pause"] && Paused) {
+            self.scene.view.paused = NO;
+            Paused = NO;
         }
     }
 }
