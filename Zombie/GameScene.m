@@ -39,6 +39,7 @@ SKLabelNode *countDown;
 SKLabelNode *score;
 SKLabelNode *middleText;
 SKLabelNode *playagain;
+SKLabelNode *mainmenu;
 int scoreValue;
 BOOL startGamePlay = YES;
 NSTimeInterval startTime;
@@ -108,13 +109,21 @@ bool GameOver = NO;
     middleText.zPosition = 100;
     [self addChild:middleText];
     
-    playagain = [SKLabelNode labelNodeWithFontNamed:@"Futura-Medium"];
+    playagain = [SKLabelNode labelNodeWithFontNamed:@"papyrus"];
     playagain.fontSize = 20;
     playagain.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)*0.8);
     playagain.fontColor = [SKColor whiteColor];
     playagain.name = @"playagain";
     playagain.zPosition = 100;
     [self addChild:playagain];
+    
+    mainmenu = [SKLabelNode labelNodeWithFontNamed:@"papyrus"];
+    mainmenu.fontSize = 20;
+    mainmenu.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)*0.6);
+    mainmenu.fontColor = [SKColor whiteColor];
+    mainmenu.name = @"mainmenu";
+    mainmenu.zPosition = 100;
+    [self addChild:mainmenu];
     
     CGSize coverageSize = CGSizeMake(2000,2000); //the size of the entire image you want tiled
     CGRect textureSize = CGRectMake(0, 0, 50, 50); //the size of the tile.
@@ -157,6 +166,7 @@ bool GameOver = NO;
         countDown.text=@":(";
         middleText.text =@"GAME OVER";
         playagain.text=@"Play Again";
+        mainmenu.text=@"Main Menu";
         [self.player removeFromParent];
     } else if ((contact.bodyA.categoryBitMask == monsterCategory)
         && (contact.bodyB.categoryBitMask == projectileCategory))
@@ -207,10 +217,11 @@ bool GameOver = NO;
         SKNode *node = [self nodeAtPoint:location];
         if ([node.name isEqualToString: @"playagain"]) {
             [self restart];
-            //let reveal : SKTransition = SKTransition.flipHorizontalWithDuration(0.5)
-            //let scene = GameScene(size: self.view!.bounds.size)
-            //scene.scaleMode = .AspectFill
-            //self.view?.presentScene(scene, transition: reveal)
+        }else if([node.name isEqualToString: @"mainmenu"]) {
+            SKScene *sampleScene = [[MenuScene alloc] initWithSize:self.size];
+            SKTransition *transition = [SKTransition flipVerticalWithDuration:0.5];
+            [self.view presentScene:sampleScene transition:transition];
+
         }
     }
 }
@@ -352,6 +363,7 @@ bool GameOver = NO;
         countDown.text=@":(";
         middleText.text = @"GAME OVER";
         playagain.text=@"Play Again";
+        mainmenu.text=@"Main Menu";
         [self.player removeFromParent];
     }
     
